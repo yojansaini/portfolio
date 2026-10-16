@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RegWatch · Yojan Saini</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-id" href="../index.html">Yojan <span>Saini</span></a>
+  <div class="nav-right">
+    <a href="https://linkedin.com/in/yojan-saini/" target="_blank">LinkedIn</a>
+    <a href="mailto:yojansaini@gmail.com" class="nav-cta">yojansaini@gmail.com</a>
+  </div>
+</nav>
+
+  <div class="cs-wrap">
+    <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</a>
+
+    <div class="cs-header">
+      <div>
+        <div class="cs-tags">
+          <span class="rtag ai">AI product</span>
+          <span class="rtag">Regulatory tech</span>
+          <span class="rtag">Solo build</span>
+        </div>
+        <h1 class="cs-title">RegWatch</h1>
+        <p class="cs-lead">An AI-powered regulatory intelligence platform built end to end by me. It crawls RBI and NPCI sources daily, classifies circulars with a fine-tuned LLM, and surfaces actionable compliance signals to the team in real time.</p>
+      </div>
+      <div>
+        <div class="spec-item"><div class="spec-label">Role</div><div class="spec-val">PM · Solo builder</div></div>
+        <div class="spec-item"><div class="spec-label">Scope</div><div class="spec-val">Full stack, end to end</div></div>
+        <div class="spec-item"><div class="spec-label">Stack</div><div class="spec-val">Python · RAG · LLM · React · AWS</div></div>
+        <div class="spec-item"><div class="spec-label">Context</div><div class="spec-val">Internal · SecurePay</div></div>
+      </div>
+    </div>
+
+    <div class="cs-body">
+      <nav class="cs-rail">
+        <a class="cs-rail-item act" href="#s-problem">Problem</a>
+        <a class="cs-rail-item" href="#s-role">My role</a>
+        <a class="cs-rail-item" href="#s-build">What I built</a>
+        <a class="cs-rail-item" href="#s-arch">Architecture</a>
+        <a class="cs-rail-item" href="#s-flow">System flow</a>
+        <a class="cs-rail-item" href="#s-impact">Impact</a>
+        <a class="cs-rail-item" href="#s-learned">What I learned</a>
+      </nav>
+
+      <div class="cs-content">
+
+        <div class="cs-section" id="s-problem">
+          <p class="cs-section-label">Problem</p>
+          <div class="cs-text">
+            <p>During SecurePay's PA transition and payin revamp, staying current with RBI and NPCI regulatory output became unsustainable. The process was entirely manual. Someone had to find the circular, read it, assess relevance, and flag it to the right person.</p>
+            <p>With 10–15 circulars issued daily across both regulators, this wasn't a time problem. It was a risk problem: a missed requirement landing in a live feature spec or a PPI application filing. Generic tools returned too much noise and understood nothing about fintech regulatory context.</p>
+            <p><strong>The insight was that compliance monitoring was being treated as a research task when it needed to be a system.</strong></p>
+          </div>
+        </div>
+
+        <div class="cs-section" id="s-role">
+          <p class="cs-section-label">My role</p>
+          <div class="cs-text">
+            <p>I identified the problem, defined the product, and built it entirely myself: frontend, backend, crawler pipeline, RAG architecture, LLM fine-tuning, and AWS deployment. No engineering support. RegWatch is a solo build driven by a product need I lived firsthand as PM on the PA transition.</p>
+          </div>
+          <div class="stack">
+            <span class="pill">Python / FastAPI</span><span class="pill">React</span><span class="pill">ChromaDB</span>
+            <span class="pill">Sentence-transformers</span><span class="pill">Ollama LLM</span>
+            <span class="pill">AWS EC2</span><span class="pill">Groq API</span><span class="pill">SQLite</span>
+          </div>
+        </div>
+
+        <div class="cs-section" id="s-build">
+          <p class="cs-section-label">What I built</p>
+          <div class="cs-text">
+            <p><strong>Crawler layer.</strong> Automated Python crawlers scraping RBI and NPCI sources on a scheduler, feeding a structured SQLite alerts database. A Python queue with three automatic retry attempts handles crawl failures, with a manual retry trigger for persistent cases.</p>
+          </div>
+          <div class="callout">
+            The NPCI crawler was the hardest part of the build. NPCI's website uses dynamic client-side rendering, so most scraping approaches fail outright. Getting reliable automated extraction required working around the rendering layer entirely. The kind of detail you only know if you built it yourself.
+          </div>
+          <div class="cs-text">
+            <p><strong>RAG pipeline.</strong> ChromaDB vector store with sentence-transformers for semantic retrieval. Summary regeneration triggers automatically on generation failure or on an explicit request for deeper enrichment.</p>
+            <p><strong>The most important product decision: AI routing.</strong> Rather than sending every call to the hosted LLM, I designed two deliberate tiers based on cost vs quality.</p>
+          </div>
+          <div class="routing">
+            <div class="routing-cell">
+              <div class="routing-type ai">Rich summaries</div>
+              <div class="routing-name">Self-hosted LLM</div>
+              <div class="routing-detail">regwatch-llm on Ollama, AWS EC2. Deep contextual understanding of regulatory language. Cost justified by output quality.</div>
+            </div>
+            <div class="routing-cell">
+              <div class="routing-type">Ask bot</div>
+              <div class="routing-name">Groq free API</div>
+              <div class="routing-detail">Short, fast, low-cost answers for on-demand queries that don't need the full model's depth.</div>
+            </div>
+          </div>
+          <div class="cs-text">
+            <p>Multi-provider fallback: Ollama → Groq → Anthropic, ensuring uptime if one layer failed. Hosting an LLM on EC2 has real cost. Every call that didn't need that depth shouldn't pay for it.</p>
+            <p><strong>Feedback and model improvement loop.</strong> Every AI-suggested tag and severity classification was surfaced to users as a feedback request. Corrections went through a maker-checker approval flow governed by the Compliance Manager before being accepted, feeding back into the classification model as training signal.</p>
+            <p><strong>Subscriptions.</strong> Any team member can subscribe to alerts and weekly digests filtered by topic and alert severity level.</p>
+          </div>
+        </div>
+
+        <!-- ARCHITECTURE DIAGRAM -->
+        <div class="cs-section" id="s-arch">
+          <p class="cs-section-label">Architecture</p>
+          <div class="arch-wrap">
+            <svg width="100%" viewBox="0 0 700 520" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>RegWatch architecture</title>
+              <defs>
+                <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M1 1L9 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+
+              <!-- ROW 1: Sources -->
+              <!-- RBI box -->
+              <rect x="80" y="20" width="140" height="48" rx="4" fill="#0d1f33" stroke="#243d56" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="150" y="40" text-anchor="middle" dominant-baseline="central">RBI website</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a6070" x="150" y="57" text-anchor="middle" dominant-baseline="central">rbi.org.in</text>
+
+              <!-- NPCI box -->
+              <rect x="480" y="20" width="140" height="48" rx="4" fill="#0d1f33" stroke="#4a7fa5" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="550" y="40" text-anchor="middle" dominant-baseline="central">NPCI website</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a7fa5" x="550" y="57" text-anchor="middle" dominant-baseline="central">Dynamic rendering !</text>
+
+              <!-- ROW 2: Crawlers -->
+              <line x1="150" y1="68" x2="150" y2="118" stroke="#243d56" stroke-width="1.5" marker-end="url(#arr)"/>
+              <line x1="550" y1="68" x2="550" y2="118" stroke="#243d56" stroke-width="1.5" marker-end="url(#arr)"/>
+
+              <rect x="80" y="118" width="140" height="56" rx="4" fill="#0d1f33" stroke="#243d56" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="150" y="138" text-anchor="middle" dominant-baseline="central">RBI crawler</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a6070" x="150" y="157" text-anchor="middle" dominant-baseline="central">Python scheduler</text>
+
+              <rect x="480" y="118" width="140" height="56" rx="4" fill="#0d1f33" stroke="#243d56" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="550" y="138" text-anchor="middle" dominant-baseline="central">NPCI crawler</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a6070" x="550" y="157" text-anchor="middle" dominant-baseline="central">Headless browser</text>
+
+              <!-- Both crawlers → Queue (center) -->
+              <path d="M220 150 L280 150 L280 216" stroke="#243d56" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+              <path d="M480 150 L420 150 L420 216" stroke="#243d56" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+              <!-- ROW 3: Queue (center) -->
+              <rect x="240" y="216" width="220" height="56" rx="4" fill="#0d1f33" stroke="#243d56" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="350" y="236" text-anchor="middle" dominant-baseline="central">Python queue</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a6070" x="350" y="255" text-anchor="middle" dominant-baseline="central">3 retries + manual trigger</text>
+
+              <!-- Queue → RAG -->
+              <line x1="350" y1="272" x2="350" y2="318" stroke="#243d56" stroke-width="1.5" marker-end="url(#arr)"/>
+
+              <!-- ROW 4: RAG Pipeline (wide) -->
+              <rect x="100" y="318" width="500" height="56" rx="4" fill="#0a1628" stroke="#1a3352" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="350" y="338" text-anchor="middle" dominant-baseline="central">RAG pipeline</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a6070" x="350" y="357" text-anchor="middle" dominant-baseline="central">ChromaDB · sentence-transformers · SQLite · auto summary regeneration</text>
+
+              <!-- AI routing label -->
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a7fa5" x="350" y="392" text-anchor="middle">AI routing: cost vs quality</text>
+
+              <!-- RAG → LLM (left) -->
+              <path d="M210 374 L180 374 L180 416" stroke="#243d56" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+              <!-- RAG → Ask bot (right) -->
+              <path d="M490 374 L520 374 L520 416" stroke="#243d56" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+              <!-- ROW 5: LLM tiers -->
+              <rect x="80" y="416" width="200" height="56" rx="4" fill="#0d1f33" stroke="#7b4fd4" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#a07ee8" x="180" y="436" text-anchor="middle" dominant-baseline="central">Self-hosted LLM</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#7b4fd4" x="180" y="455" text-anchor="middle" dominant-baseline="central">Ollama · AWS EC2 · rich summaries</text>
+
+              <rect x="420" y="416" width="200" height="56" rx="4" fill="#0d1f33" stroke="#243d56" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="13" font-weight="500" fill="#f0f0ed" x="520" y="436" text-anchor="middle" dominant-baseline="central">Groq API</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="10" fill="#4a6070" x="520" y="455" text-anchor="middle" dominant-baseline="central">Free tier · Ask bot · fast answers</text>
+
+              <!-- Fallback chain label between tiers -->
+              <text font-family="General Sans, Inter, sans-serif" font-size="9" fill="#4a6070" x="350" y="438" text-anchor="middle">fallback:</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="9" fill="#4a6070" x="350" y="450" text-anchor="middle">Ollama → Groq → Anthropic</text>
+
+              <!-- Both LLM tiers → Dashboard -->
+              <path d="M180 472 L180 498 L280 498" stroke="#243d56" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+              <path d="M520 472 L520 498 L420 498" stroke="#243d56" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+              <!-- ROW 6: Dashboard -->
+              <rect x="280" y="482" width="140" height="30" rx="4" fill="#0d1f33" stroke="#243d56" stroke-width="1"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="12" font-weight="500" fill="#f0f0ed" x="350" y="497" text-anchor="middle" dominant-baseline="central">React dashboard</text>
+
+              <!-- Feedback loop: dashed arc from dashboard back up to RAG -->
+              <path d="M350 482 L350 468 L660 468 L660 346 L602 346" stroke="#7b4fd4" stroke-width="1" stroke-dasharray="5 4" fill="none" marker-end="url(#arr)"/>
+              <text font-family="General Sans, Inter, sans-serif" font-size="9" fill="#7b4fd4" x="670" y="410" text-anchor="start">Feedback</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="9" fill="#4a6070" x="670" y="422" text-anchor="start">Maker-checker</text>
+              <text font-family="General Sans, Inter, sans-serif" font-size="9" fill="#4a6070" x="670" y="434" text-anchor="start">→ model training</text>
+
+            </svg>
+          </div>
+        </div>
+
+        <!-- ANIMATED SYSTEM FLOW -->
+        <div class="cs-section" id="s-flow">
+          <p class="cs-section-label">System flow</p>
+          <div class="rw-graphic-wrap">
+            <canvas id="rwCanvas"></canvas>
+          </div>
+        </div>
+
+        <div class="cs-section" id="s-impact">
+          <p class="cs-section-label">Impact</p>
+          <div class="impact">
+            <div class="impact-cell"><div class="impact-num">10–15</div><div class="impact-desc">Circulars tracked daily, automatically, across RBI and NPCI</div></div>
+            <div class="impact-cell"><div class="impact-num">PPI</div><div class="impact-desc">Directly informed onboarding flow alignment for PPI licence application</div></div>
+            <div class="impact-cell"><div class="impact-num">0</div><div class="impact-desc">External compliance tool dependencies. Fully self-hosted.</div></div>
+            <div class="impact-cell"><div class="impact-num">↺</div><div class="impact-desc">Continuous model improvement via compliance manager-governed feedback loop</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section" id="s-learned">
+          <p class="cs-section-label">What I learned</p>
+          <div class="cs-text">
+            <p>Building RegWatch clarified the gap between a vibe-coded product that works and one that's production-ready. Error handling at scale, observability, graceful degradation when the LLM is slow, access control. These aren't features you add later without real effort.</p>
+            <p>I now factor this gap explicitly into every spec I write. The difference between something that works and something operationally sound shows up in planning, not in the build.</p>
+            <p>A PM who has built a full-stack AI product understands the tradeoffs they're asking engineering teams to navigate. That changes the quality of every technical conversation, every PRD, and every scope decision.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<footer>
+  <span class="footer-l">Yojan Saini · Gurugram, India</span>
+  <div class="footer-r">
+    <a href="mailto:yojansaini@gmail.com">yojansaini@gmail.com</a>
+    <a href="https://linkedin.com/in/yojan-saini/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+<script src="../assets/js/case.js"></script>
+<script src="../assets/js/regwatch-canvas.js"></script>
+</body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yojan Saini</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-id" href="index.html">Yojan <span>Saini</span></a>
+  <div class="nav-right">
+    <a href="https://linkedin.com/in/yojan-saini/" target="_blank">LinkedIn</a>
+    <a href="mailto:yojansaini@gmail.com" class="nav-cta">yojansaini@gmail.com</a>
+  </div>
+</nav>
+
+  <div class="hero">
+    <p class="hero-pre">Product Manager, Fintech and AI</p>
+    <h1 class="hero-name">Yojan<br><strong>Saini</strong></h1>
+    <p class="hero-desc">
+      I build <em>AI-enabled payments and fintech platforms</em>, currently sole PM at SecurePay across pay-in, payouts, AI-driven merchant onboarding and regulatory intelligence.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="projects/regwatch.html" style="text-decoration:none">View case study</a>
+      <a href="https://linkedin.com/in/yojan-saini/" target="_blank" class="btn-ghost">LinkedIn →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <div class="stat-val">₹400 Cr</div>
+        <div class="stat-desc">Transaction volume owned</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">3</div>
+        <div class="stat-desc">AI-native products built</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">30</div>
+        <div class="stat-desc">Person team, sole PM</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">IIM-C</div>
+        <div class="stat-desc">MBA, 2023</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="work-wrap">
+    <div class="work-head">
+      <p class="work-title">Selected work</p>
+      <p class="work-note">Three products built at SecurePay. Internal tools, not yet public.</p>
+    </div>
+
+    <a class="pcard" href="projects/regwatch.html">
+      <div class="pcard-top">
+        <div class="pcard-lead">
+          <span class="pcard-num">01</span>
+          <h3 class="pcard-title">RegWatch</h3>
+          <span class="pcard-status live">Case study ready</span>
+        </div>
+        <span class="pcard-arrow">↗</span>
+      </div>
+
+      <div class="pcard-tags">
+        <span class="rtag ai">AI product</span>
+        <span class="rtag">Regulatory tech</span>
+        <span class="rtag">Solo build</span>
+        <span class="rtag">Full stack</span>
+      </div>
+
+      <p class="pcard-sub">An always-on regulatory intelligence platform that crawls RBI and NPCI daily, classifies every circular with an LLM, and pushes the relevant ones to the people who need them. Replaces a manual, research-shaped compliance process with a system. Designed, built and deployed end to end by me, with no engineering support.</p>
+
+      <div class="pcard-points">
+        <div class="pp">
+          <div class="pp-label">The hard part</div>
+          <div class="pp-text">NPCI renders its circular list client-side, so ordinary scraping returns nothing. Reliable extraction meant working around the rendering layer entirely.</div>
+        </div>
+        <div class="pp">
+          <div class="pp-label">Key decision</div>
+          <div class="pp-text">Two-tier AI routing: a self-hosted model on EC2 for deep summaries, a free fast API for the ask bot. Calls that don't need depth don't pay for it.</div>
+        </div>
+        <div class="pp">
+          <div class="pp-label">The loop</div>
+          <div class="pp-text">Every AI tag and severity is surfaced for correction. Fixes pass maker-checker approval, then feed back as training signal.</div>
+        </div>
+      </div>
+
+      <div class="pcard-foot">
+        <div class="pcard-metrics">
+          <span class="pm"><b>10–15</b> circulars / day</span>
+          <span class="pm"><b>2</b> regulators tracked</span>
+          <span class="pm"><b>0</b> external tools</span>
+        </div>
+        <div class="pcard-stack">Python · FastAPI · React · ChromaDB · Ollama · Groq · AWS EC2</div>
+      </div>
+    </a>
+
+    <a class="pcard" href="projects/partial-payments.html">
+      <div class="pcard-top">
+        <div class="pcard-lead">
+          <span class="pcard-num">02</span>
+          <h3 class="pcard-title">Partial Payments</h3>
+          <span class="pcard-status">Built · write-up in progress</span>
+        </div>
+        <span class="pcard-arrow">↗</span>
+      </div>
+
+      <div class="pcard-tags">
+        <span class="rtag">Payments</span>
+        <span class="rtag">Hosted checkout</span>
+        <span class="rtag">PRD</span>
+        <span class="rtag">Edge cases</span>
+      </div>
+
+      <p class="pcard-sub">A multi-mode partial payment capability for SecurePay's hosted checkout, letting a payer settle an invoice in installments or split it across people and methods. The design problem was not the happy path; it was keeping money, order and refund state coherent when a payment is only ever partly complete.</p>
+
+      <div class="pcard-points">
+        <div class="pp">
+          <div class="pp-label">Modes</div>
+          <div class="pp-text">Installments over time, and splits across multiple payers and payment methods on a single invoice.</div>
+        </div>
+        <div class="pp">
+          <div class="pp-label">Status model</div>
+          <div class="pp-text">A three-dimension status chain separating payment, order and settlement state, so a part-paid invoice is never ambiguous.</div>
+        </div>
+        <div class="pp">
+          <div class="pp-label">Scope</div>
+          <div class="pp-text">20+ edge cases specified: overpayment, expiry mid-chain, partial refunds and reconciliation against a part-settled order.</div>
+        </div>
+      </div>
+
+      <div class="pcard-foot">
+        <div class="pcard-metrics">
+          <span class="pm"><b>3</b> status dimensions</span>
+          <span class="pm"><b>20+</b> edge cases</span>
+          <span class="pm"><b>2</b> payment modes</span>
+        </div>
+        <div class="pcard-stack">Product spec · Checkout · Ledger &amp; reconciliation</div>
+      </div>
+    </a>
+
+    <a class="pcard" href="projects/dmo-flow-builder.html">
+      <div class="pcard-top">
+        <div class="pcard-lead">
+          <span class="pcard-num">03</span>
+          <h3 class="pcard-title">DMO AI Flow Builder</h3>
+          <span class="pcard-status">Built · write-up in progress</span>
+        </div>
+        <span class="pcard-arrow">↗</span>
+      </div>
+
+      <div class="pcard-tags">
+        <span class="rtag ai">AI product</span>
+        <span class="rtag">KYC</span>
+        <span class="rtag">Onboarding</span>
+        <span class="rtag">Platform</span>
+      </div>
+
+      <p class="pcard-sub">A merchant onboarding platform that generates and deploys a configurable KYC workflow per product line, instead of hard-coding one journey per product. Operations describe what a product needs; the builder assembles the flow, scores the merchant, and routes anything unusual to a human.</p>
+
+      <div class="pcard-points">
+        <div class="pp">
+          <div class="pp-label">Generated flows</div>
+          <div class="pp-text">Each product line gets its own document set, checks and sequencing, configured rather than rebuilt in code.</div>
+        </div>
+        <div class="pp">
+          <div class="pp-label">Risk scoring</div>
+          <div class="pp-text">Merchant behaviour scoring decides who moves straight through and who gets pulled for review.</div>
+        </div>
+        <div class="pp">
+          <div class="pp-label">Governance</div>
+          <div class="pp-text">Maker-checker on every flow change, so a configurable onboarding journey stays auditable for compliance.</div>
+        </div>
+      </div>
+
+      <div class="pcard-foot">
+        <div class="pcard-metrics">
+          <span class="pm"><b>Per-product</b> KYC flows</span>
+          <span class="pm"><b>Maker-checker</b> governed</span>
+        </div>
+        <div class="pcard-stack">AI workflow generation · KYC · Risk scoring</div>
+      </div>
+    </a>
+  </div>
+
+<footer>
+  <span class="footer-l">Yojan Saini · Gurugram, India</span>
+  <div class="footer-r">
+    <a href="mailto:yojansaini@gmail.com">yojansaini@gmail.com</a>
+    <a href="https://linkedin.com/in/yojan-saini/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+</body></html>
