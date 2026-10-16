@@ -19,22 +19,448 @@
   </div>
 </nav>
 
-<div class="cs-wrap">
-  <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</a>
-  <div class="cs-header">
-    <div>
-      <div class="cs-tags"><span class="rtag">Payments</span><span class="rtag">PRD</span></div>
-      <h1 class="cs-title">Partial Payments</h1>
-      <p class="cs-lead">Multi-mode partial payment feature for SecurePay's hosted checkout: installments, split payments, and a three-dimension status chain across 20+ edge cases.</p>
+  <div class="cs-wrap">
+    <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</a>
+
+    <div class="cs-header">
+      <div>
+        <div class="cs-tags">
+          <span class="rtag">Payments</span>
+          <span class="rtag ai">Milestone billing</span>
+          <span class="rtag">PRD lead</span>
+        </div>
+        <h1 class="cs-title">Partial Payments</h1>
+        <p class="cs-lead">A three-mode payment collection feature purpose-built for milestone-based billing, unifying project tracking, consent capture and collection into a single merchant-created order.</p>
+        <p class="cs-lead-2">Freelancers and project-based businesses get paid in phases, but every payment platform treats collection as a single event or a time-based split. Milestone mode closes that gap: a payment leg moves only when the merchant marks work complete and the customer accepts it.</p>
+      </div>
+      <div>
+        <div class="spec-item"><div class="spec-label">Role</div><div class="spec-val">PM lead</div></div>
+        <div class="spec-item"><div class="spec-label">Status</div><div class="spec-val">Built, pending go-live</div></div>
+        <div class="spec-item"><div class="spec-label">Scope</div><div class="spec-val">PRD, edge cases, consent design</div></div>
+        <div class="spec-item"><div class="spec-label">Context</div><div class="spec-val">SecurePay</div></div>
+      </div>
     </div>
-    <div>
-      <div class="spec-item"><div class="spec-label">Role</div><div class="spec-val">Product Manager</div></div>
-      <div class="spec-item"><div class="spec-label">Context</div><div class="spec-val">SecurePay</div></div>
-      <div class="spec-item"><div class="spec-label">Status</div><div class="spec-val">Case study coming soon</div></div>
+
+    <div class="cs-body">
+      <nav class="cs-rail">
+        <a class="cs-rail-item act" href="#s-problem">The Problem</a>
+        <a class="cs-rail-item" href="#s-feature">The Feature</a>
+        <a class="cs-rail-item" href="#s-milestone">Milestone Mode</a>
+        <a class="cs-rail-item" href="#s-decision">The Hardest Decision</a>
+        <a class="cs-rail-item" href="#s-edge">Edge Cases</a>
+        <a class="cs-rail-item" href="#s-unlocks">What This Unlocks</a>
+        <a class="cs-rail-item" href="#s-status">Status</a>
+      </nav>
+
+      <div class="cs-content">
+
+        <!-- ============ PROBLEM ============ -->
+        <div class="cs-section" id="s-problem">
+          <p class="cs-section-label">The Problem</p>
+          <div class="cs-text">
+            <p>Freelancers, contractors, delivery partners and project-based businesses operate on milestone logic: work happens in phases, payment follows completion. Yet every payment platform treats collection as a single event or a time-based split.</p>
+            <p>Existing solutions cover three things well: subscriptions for recurring fixed amounts, payment links for one-time collection, and basic partial payments for installment splitting. None of them answer a simple question: what happens when payment should only move when a deliverable is done?</p>
+            <p>The result is fragmentation. A contractor uses one tool to track project milestones, another to raise invoices, and a third to collect payment. None of these talk to each other. Disputes happen because payment terms were never formally agreed to. Late fees get applied without the customer ever seeing them upfront.</p>
+            <p><strong>The insight: milestone-linked billing is not a payment problem. It is a contract and consent problem that happens to end in a payment.</strong></p>
+          </div>
+
+          <p class="stat-strip-label">The scale of the problem in India</p>
+          <div class="impact">
+            <div class="impact-cell">
+              <div class="impact-num">15M</div>
+              <div class="impact-desc">Freelancers in India as of 2024, second only to the US. Market projected to reach USD 25 billion.<cite>Indian Freelancers Association 2024 · Razorpay 2025</cite></div>
+            </div>
+            <div class="impact-cell">
+              <div class="impact-num">₹7.34L Cr</div>
+              <div class="impact-desc">Delayed payments owed to India's MSMEs as of March 2024, affecting 6.4 crore businesses contributing 4.6% of GVA.<cite>GAME / FISME / C2FO, Nov 2025</cite></div>
+            </div>
+            <div class="impact-cell">
+              <div class="impact-num">85%</div>
+              <div class="impact-desc">Of freelancers globally are paid late at least sometimes. 21% are paid late, or not at all, more than half the time.<cite>Remote, 2024 Global Contractor Survey</cite></div>
+            </div>
+            <div class="impact-cell">
+              <div class="impact-num">38–46%</div>
+              <div class="impact-desc">Of Indian freelance engagements involve non-payment or contested deliverables, among the highest dispute rates globally.<cite>Jobbers.io Dispute Report, 2026</cite></div>
+            </div>
+          </div>
+          <div class="cs-text">
+            <p>Most Indian freelancers receive payment only two to four weeks after invoicing, with payment infrastructure completely disconnected from invoicing and project tracking workflows.</p>
+          </div>
+        </div>
+
+        <!-- ============ THE FEATURE ============ -->
+        <div class="cs-section" id="s-feature">
+          <p class="cs-section-label">The Feature</p>
+          <div class="cs-text">
+            <p>Partial Payments on SecurePay unifies project tracking, billing and collection into a single merchant-created order with three distinct modes.</p>
+          </div>
+
+          <!-- VISUAL 2: three modes comparison -->
+          <div class="arch-wrap">
+            <svg width="100%" viewBox="0 0 700 420" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Scheduled, Unscheduled and Milestone modes compared</title>
+
+              <!-- milestone column highlight -->
+              <rect class="col-hl" x="474" y="0" width="226" height="420" rx="6"/>
+
+              <!-- dividers -->
+              <line class="ln" x1="237" y1="16" x2="237" y2="404" stroke-width="1"/>
+              <line class="ln" x1="474" y1="16" x2="474" y2="404" stroke-width="1"/>
+
+              <!-- ---------- SCHEDULED ---------- -->
+              <text class="mode-h ta" x="28" y="30">Scheduled</text>
+              <text class="mode-sub t3" x="28" y="48">Fixed installments</text>
+
+              <!-- calendar glyph -->
+              <rect class="box" x="28" y="66" width="56" height="46" rx="4" stroke-width="1"/>
+              <line class="ln" x1="28" y1="80" x2="84" y2="80" stroke-width="1"/>
+              <circle class="dot-a" cx="40" cy="92" r="3"/>
+              <circle class="dot-a" cx="56" cy="92" r="3"/>
+              <circle class="dot-a" cx="72" cy="92" r="3"/>
+              <circle class="dot-a" cx="40" cy="104" r="3"/>
+
+              <text class="pk t3" x="28" y="146">TRIGGER</text>
+              <text class="pv t1" x="28" y="164">Fixed date</text>
+              <text class="pk t3" x="28" y="196">PAYMENT TIMING</text>
+              <text class="pv t1" x="28" y="214">Predefined</text>
+              <text class="pk t3" x="28" y="246">BEST FOR</text>
+              <text class="pv t1" x="28" y="264">Installment plans</text>
+              <text class="pk t3" x="28" y="296">CUSTOMER CONSENT</text>
+              <text class="pv t1" x="28" y="314">At order creation</text>
+
+              <!-- timeline: evenly spaced -->
+              <line class="ln" x1="28" y1="368" x2="209" y2="368" stroke-width="1"/>
+              <circle class="dot-a" cx="28" cy="368" r="4.5"/>
+              <circle class="dot-a" cx="88" cy="368" r="4.5"/>
+              <circle class="dot-a" cx="148" cy="368" r="4.5"/>
+              <circle class="dot-a" cx="208" cy="368" r="4.5"/>
+              <text class="tiny t3" x="28" y="392">Equal intervals, set in advance</text>
+
+              <!-- ---------- UNSCHEDULED ---------- -->
+              <text class="mode-h ta" x="265" y="30">Unscheduled</text>
+              <text class="mode-sub t3" x="265" y="48">Customer paced</text>
+
+              <!-- cursor / action glyph -->
+              <rect class="box" x="265" y="66" width="56" height="46" rx="4" stroke-width="1"/>
+              <path class="ln" d="M285 80 L285 100 L291 94 L296 104 L300 102 L295 92 L303 92 Z" stroke-width="1"/>
+
+              <text class="pk t3" x="265" y="146">TRIGGER</text>
+              <text class="pv t1" x="265" y="164">Customer decides</text>
+              <text class="pk t3" x="265" y="196">PAYMENT TIMING</text>
+              <text class="pv t1" x="265" y="214">Flexible</text>
+              <text class="pk t3" x="265" y="246">BEST FOR</text>
+              <text class="pv t1" x="265" y="264">Variable projects</text>
+              <text class="pk t3" x="265" y="296">CUSTOMER CONSENT</text>
+              <text class="pv t1" x="265" y="314">At order creation</text>
+
+              <!-- timeline: irregular -->
+              <line class="ln" x1="265" y1="368" x2="446" y2="368" stroke-width="1"/>
+              <circle class="dot-a" cx="265" cy="368" r="4.5"/>
+              <circle class="dot-a" cx="312" cy="368" r="4.5"/>
+              <circle class="dot-a" cx="430" cy="368" r="4.5"/>
+              <text class="tiny t3" x="265" y="392">Irregular, customer paced</text>
+
+              <!-- ---------- MILESTONE ---------- -->
+              <text class="mode-h tp2" x="502" y="30">Milestone</text>
+              <text class="mode-sub tp" x="502" y="48">Deliverable linked</text>
+
+              <!-- checkpoint glyph -->
+              <rect class="box ai" x="502" y="66" width="56" height="46" rx="4" stroke-width="1"/>
+              <path class="lnp" d="M514 90 L522 98 L546 78" stroke-width="2" fill="none"/>
+
+              <text class="pk t3" x="502" y="146">TRIGGER</text>
+              <text class="pv t1" x="502" y="164">Milestone complete</text>
+              <text class="pv t1" x="502" y="180">+ customer accepts</text>
+              <text class="pk t3" x="502" y="212">PAYMENT TIMING</text>
+              <text class="pv t1" x="502" y="230">Event driven</text>
+              <text class="pk t3" x="502" y="262">BEST FOR</text>
+              <text class="pv t1" x="502" y="280">Deliverable-based work</text>
+              <text class="pk t3" x="502" y="312">CUSTOMER CONSENT</text>
+              <text class="pv t1" x="502" y="330">At order creation</text>
+              <text class="pv tp2" x="502" y="346">+ per milestone</text>
+
+              <!-- timeline: gated -->
+              <line class="lnp" x1="502" y1="378" x2="672" y2="378" stroke-width="1" stroke-dasharray="4 4"/>
+              <circle class="dot-p" cx="502" cy="378" r="4.5"/>
+              <circle class="dot-p" cx="559" cy="378" r="4.5"/>
+              <circle class="dot-p" cx="616" cy="378" r="4.5"/>
+              <circle class="dot-p" cx="671" cy="378" r="4.5"/>
+              <text class="tiny tp" x="502" y="400">Each gate needs acceptance</text>
+            </svg>
+          </div>
+
+          <div class="cs-text">
+            <p><strong>Scheduled.</strong> Fixed installments on predefined dates. Standard partial payment behaviour.</p>
+            <p><strong>Unscheduled.</strong> No fixed dates. The customer decides when to pay each leg, within the terms agreed at order creation. Flexible for variable project timelines.</p>
+            <p><strong>Milestone.</strong> Payment legs are tied to project milestones. A leg only moves when the merchant marks a milestone complete, the customer accepts it, and the system confirms. This is the innovation.</p>
+          </div>
+        </div>
+
+        <!-- ============ MILESTONE MODE ============ -->
+        <div class="cs-section" id="s-milestone">
+          <p class="cs-section-label">Milestone Mode: How It Works</p>
+          <div class="cs-text">
+            <p>The merchant creates the order upfront, defining each milestone, the payment amount tied to it, any applicable late fees and penalties, and the consent terms the customer will see. None of this changes after the customer accepts the order.</p>
+            <p>When a milestone is complete, the merchant marks it done. The customer receives a notification and can either accept or dispute it.</p>
+            <p>If disputed, the merchant can respond and resubmit. This loop runs a maximum of two times. If unresolved after two cycles, SecurePay's internal team mediates and resolves the order, either voiding it with a full or partial refund per leg, or settling it based on the evidence.</p>
+          </div>
+          <div class="callout">
+            Payment only moves after acceptance. No milestone acceptance means no collection for that leg.
+          </div>
+
+          <!-- VISUAL 1: animated acceptance loop -->
+          <div class="rw-graphic-wrap">
+            <canvas id="ppCanvas"></canvas>
+          </div>
+          <p class="fig-note">Milestone leg lifecycle. Blue is the acceptance path, purple is the dispute and mediation path. The loop counter admits two cycles before escalation.</p>
+        </div>
+
+        <!-- ============ HARDEST DECISION ============ -->
+        <div class="cs-section" id="s-decision">
+          <p class="cs-section-label">The Hardest Product Decision</p>
+          <div class="cs-text">
+            <p>The most complex call was scoping customer consent cleanly within a merchant-created order, specifically around late fees and penalty clauses.</p>
+            <p>Merchants configure these upfront at order creation. That is the right design: terms are fixed before the relationship begins, not imposed mid-project. But it created a hard UX and compliance challenge. How do you surface fee and penalty terms to a customer in a way that is genuinely understood, not buried in fine print?</p>
+            <p>The answer was a dedicated consent layer at order acceptance. Not a checkbox, but an explicit breakdown of every fee, penalty rate, and trigger condition the customer is agreeing to before the first leg is ever collected.</p>
+          </div>
+
+          <div class="routing">
+            <div class="routing-cell">
+              <div class="routing-type">Framework one</div>
+              <div class="routing-name">RBI PA Guidelines, 2025</div>
+              <div class="routing-detail">Mandates a board-approved dispute resolution policy with clear refund timelines, and requires payment aggregators to implement transparent fee disclosure and fraud prevention systems.</div>
+            </div>
+            <div class="routing-cell">
+              <div class="routing-type ai">Framework two</div>
+              <div class="routing-name">DPDP Act, 2023</div>
+              <div class="routing-detail">Requires consent to be specific, informed, auditable and withdrawable, with affirmative action by the customer and no bundled or pre-ticked consents. RBI's proposed Business Conduct Directions, effective January 2027, embed the same standard.</div>
+            </div>
+          </div>
+
+          <!-- VISUAL 4: consent layer flow -->
+          <div class="arch-wrap">
+            <svg width="100%" viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Consent capture sequence at order acceptance</title>
+              <defs>
+                <marker id="ppArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M1 1L9 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+
+              <!-- highlight band behind steps 3 and 4 -->
+              <rect class="col-hl" x="232" y="8" width="232" height="172" rx="6"/>
+              <text class="tiny tp" x="348" y="26" text-anchor="middle">KEY COMPLIANCE MOMENTS</text>
+
+              <!-- connector rail -->
+              <line class="ln" x1="58" y1="64" x2="642" y2="64" stroke-width="1" marker-end="url(#ppArr)"/>
+
+              <!-- step 1 -->
+              <circle class="step" cx="58" cy="64" r="16"/>
+              <text class="step-n t1" x="58" y="64" text-anchor="middle" dominant-baseline="central">1</text>
+              <text class="step-t t1" x="58" y="104" text-anchor="middle">Merchant</text>
+              <text class="step-t t1" x="58" y="118" text-anchor="middle">creates order</text>
+              <text class="step-d t3" x="58" y="140" text-anchor="middle">Milestones,</text>
+              <text class="step-d t3" x="58" y="152" text-anchor="middle">amounts, late fee,</text>
+              <text class="step-d t3" x="58" y="164" text-anchor="middle">penalty, triggers</text>
+
+              <!-- step 2 -->
+              <circle class="step" cx="174" cy="64" r="16"/>
+              <text class="step-n t1" x="174" y="64" text-anchor="middle" dominant-baseline="central">2</text>
+              <text class="step-t t1" x="174" y="104" text-anchor="middle">Sent to</text>
+              <text class="step-t t1" x="174" y="118" text-anchor="middle">customer</text>
+              <text class="step-d t3" x="174" y="140" text-anchor="middle">Notification with</text>
+              <text class="step-d t3" x="174" y="152" text-anchor="middle">order summary</text>
+
+              <!-- step 3 (key) -->
+              <circle class="step key" cx="290" cy="64" r="16"/>
+              <text class="step-n tp2" x="290" y="64" text-anchor="middle" dominant-baseline="central">3</text>
+              <text class="step-t tp2" x="290" y="104" text-anchor="middle">Consent screen</text>
+              <text class="step-d t3" x="290" y="126" text-anchor="middle">Full breakdown:</text>
+              <text class="step-d t3" x="290" y="138" text-anchor="middle">every milestone,</text>
+              <text class="step-d t3" x="290" y="150" text-anchor="middle">amount, fee,</text>
+              <text class="step-d t3" x="290" y="162" text-anchor="middle">penalty, trigger</text>
+
+              <!-- step 4 (key) -->
+              <circle class="step key" cx="406" cy="64" r="16"/>
+              <text class="step-n tp2" x="406" y="64" text-anchor="middle" dominant-baseline="central">4</text>
+              <text class="step-t tp2" x="406" y="104" text-anchor="middle">Customer accepts</text>
+              <text class="step-d t3" x="406" y="126" text-anchor="middle">Affirmative action,</text>
+              <text class="step-d t3" x="406" y="138" text-anchor="middle">not a pre-ticked box.</text>
+              <text class="step-d t3" x="406" y="150" text-anchor="middle">Record created with</text>
+              <text class="step-d t3" x="406" y="162" text-anchor="middle">timestamp, IP, device</text>
+
+              <!-- step 5 -->
+              <circle class="step" cx="522" cy="64" r="16"/>
+              <text class="step-n t1" x="522" y="64" text-anchor="middle" dominant-baseline="central">5</text>
+              <text class="step-t t1" x="522" y="104" text-anchor="middle">Consent record</text>
+              <text class="step-t t1" x="522" y="118" text-anchor="middle">stored</text>
+              <text class="step-d t3" x="522" y="140" text-anchor="middle">Durable, auditable,</text>
+              <text class="step-d t3" x="522" y="152" text-anchor="middle">tied to order ID</text>
+
+              <!-- step 6 -->
+              <circle class="step done" cx="638" cy="64" r="16"/>
+              <text class="step-n ta" x="638" y="64" text-anchor="middle" dominant-baseline="central">6</text>
+              <text class="step-t ta" x="638" y="104" text-anchor="middle">Order active</text>
+              <text class="step-d t3" x="638" y="126" text-anchor="middle">First leg</text>
+              <text class="step-d t3" x="638" y="138" text-anchor="middle">collection enabled</text>
+
+              <!-- footnote -->
+              <line class="ln" x1="28" y1="202" x2="672" y2="202" stroke-width="1"/>
+              <text class="tiny t3" x="28" y="224">Consent is specific, informed, auditable and withdrawable.</text>
+              <text class="tiny t3" x="28" y="238">RBI PA Guidelines 2025 + DPDP Act 2023</text>
+            </svg>
+          </div>
+
+          <div class="cs-text">
+            <p>Getting this right mattered because the late fee and penalty structure is exactly what generates disputes if it is not communicated clearly. Front-loading that transparency was both a compliance requirement and a product decision that directly reduces operational burden downstream.</p>
+          </div>
+        </div>
+
+        <!-- ============ EDGE CASES ============ -->
+        <div class="cs-section" id="s-edge">
+          <p class="cs-section-label">Edge Cases Designed For</p>
+          <div class="cs-text">
+            <p>The three-dimension status chain, treating execution status, reconciliation status and refund status as independent chains, meant edge cases had to be handled without cross-contamination.</p>
+          </div>
+
+          <!-- VISUAL 3: three-dimension status chain -->
+          <div class="arch-wrap">
+            <svg width="100%" viewBox="0 0 700 330" role="img" xmlns="http://www.w3.org/2000/svg">
+              <title>Execution, reconciliation and refund status as independent chains</title>
+              <defs>
+                <marker id="ppTri" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M0 0L8 4L0 8Z" fill="context-stroke"/>
+                </marker>
+              </defs>
+
+              <!-- row bands -->
+              <rect class="row-a" x="0" y="8"   width="700" height="86" rx="5"/>
+              <rect class="row-b" x="0" y="106" width="700" height="86" rx="5"/>
+              <rect class="row-a" x="0" y="204" width="700" height="86" rx="5"/>
+
+              <!-- label column separator -->
+              <line class="ln" x1="124" y1="16" x2="124" y2="282" stroke-width="1" stroke-dasharray="3 4"/>
+
+              <!-- ===== ROW 1: EXECUTION ===== -->
+              <text class="dim-l t3" x="108" y="44" text-anchor="end">EXECUTION</text>
+              <text class="dim-l t3" x="108" y="58" text-anchor="end">STATUS</text>
+              <text class="tiny ta" x="108" y="76" text-anchor="end">6 states</text>
+
+              <rect class="pillbox ex" x="148" y="26" width="76" height="26" rx="13"/>
+              <text class="pt t1" x="186" y="39" text-anchor="middle" dominant-baseline="central">TXN-INIT</text>
+              <line class="ln ex-l" x1="226" y1="39" x2="244" y2="39" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox ex" x="248" y="26" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="288" y="39" text-anchor="middle" dominant-baseline="central">TXN-PEND</text>
+              <line class="ln ex-l" x1="330" y1="39" x2="348" y2="39" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox ex" x="352" y="26" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="392" y="39" text-anchor="middle" dominant-baseline="central">TXN-AUTH</text>
+              <line class="ln ex-l" x1="434" y1="39" x2="452" y2="39" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox ex" x="456" y="26" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="496" y="39" text-anchor="middle" dominant-baseline="central">TXN-CAPT</text>
+
+              <!-- terminal states -->
+              <rect class="pillbox ex term" x="556" y="20" width="72" height="22" rx="11"/>
+              <text class="pt-s t3" x="592" y="31" text-anchor="middle" dominant-baseline="central">TXN-FAIL</text>
+              <rect class="pillbox ex term" x="556" y="46" width="72" height="22" rx="11"/>
+              <text class="pt-s t3" x="592" y="57" text-anchor="middle" dominant-baseline="central">TXN-CNCL</text>
+              <rect class="pillbox ex term" x="556" y="72" width="72" height="22" rx="11"/>
+              <text class="pt-s t3" x="592" y="83" text-anchor="middle" dominant-baseline="central">TXN-TOUT</text>
+              <text class="tiny t3" x="640" y="58">terminal</text>
+
+              <!-- ===== ROW 2: RECONCILIATION ===== -->
+              <text class="dim-l t3" x="108" y="142" text-anchor="end">RECONCILIATION</text>
+              <text class="dim-l t3" x="108" y="156" text-anchor="end">STATUS</text>
+              <text class="tiny tc" x="108" y="174" text-anchor="end">6 states</text>
+
+              <rect class="pillbox rc" x="148" y="124" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="188" y="137" text-anchor="middle" dominant-baseline="central">RCN-PEND</text>
+              <line class="ln rc-l" x1="230" y1="137" x2="248" y2="137" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox rc" x="252" y="112" width="86" height="22" rx="11"/>
+              <text class="pt-s t1" x="295" y="123" text-anchor="middle" dominant-baseline="central">RCN-MATCH</text>
+              <rect class="pillbox rc" x="252" y="140" width="86" height="22" rx="11"/>
+              <text class="pt-s t1" x="295" y="151" text-anchor="middle" dominant-baseline="central">RCN-MISM</text>
+              <line class="ln rc-l" x1="340" y1="137" x2="358" y2="137" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox rc" x="362" y="124" width="76" height="26" rx="13"/>
+              <text class="pt t1" x="400" y="137" text-anchor="middle" dominant-baseline="central">RCN-MAN</text>
+              <line class="ln rc-l" x1="440" y1="137" x2="458" y2="137" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox rc" x="462" y="124" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="502" y="137" text-anchor="middle" dominant-baseline="central">RCN-RSLV</text>
+
+              <rect class="pillbox rc term" x="562" y="124" width="80" height="26" rx="13"/>
+              <text class="pt t3" x="602" y="137" text-anchor="middle" dominant-baseline="central">RCN-DISP</text>
+              <text class="tiny t3" x="654" y="141">terminal</text>
+
+              <!-- ===== ROW 3: REFUND ===== -->
+              <text class="dim-l t3" x="108" y="240" text-anchor="end">REFUND</text>
+              <text class="dim-l t3" x="108" y="254" text-anchor="end">STATUS</text>
+              <text class="tiny tp" x="108" y="272" text-anchor="end">6 states</text>
+
+              <rect class="pillbox rf" x="148" y="222" width="76" height="26" rx="13"/>
+              <text class="pt t1" x="186" y="235" text-anchor="middle" dominant-baseline="central">RFD-INIT</text>
+              <line class="ln rf-l" x1="226" y1="235" x2="244" y2="235" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox rf" x="248" y="222" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="288" y="235" text-anchor="middle" dominant-baseline="central">RFD-PEND</text>
+              <line class="ln rf-l" x1="330" y1="235" x2="348" y2="235" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox rf" x="352" y="210" width="80" height="22" rx="11"/>
+              <text class="pt-s t1" x="392" y="221" text-anchor="middle" dominant-baseline="central">RFD-SUCC</text>
+              <rect class="pillbox rf term" x="352" y="238" width="80" height="22" rx="11"/>
+              <text class="pt-s t3" x="392" y="249" text-anchor="middle" dominant-baseline="central">RFD-FAIL</text>
+              <line class="ln rf-l" x1="434" y1="235" x2="452" y2="235" stroke-width="1" marker-end="url(#ppTri)"/>
+
+              <rect class="pillbox rf" x="456" y="222" width="80" height="26" rx="13"/>
+              <text class="pt t1" x="496" y="235" text-anchor="middle" dominant-baseline="central">RFD-PART</text>
+
+              <rect class="pillbox rf term" x="556" y="222" width="80" height="26" rx="13"/>
+              <text class="pt t3" x="596" y="235" text-anchor="middle" dominant-baseline="central">RFD-REVD</text>
+              <text class="tiny t3" x="648" y="239">terminal</text>
+
+              <!-- footer note -->
+              <text class="tiny ta" x="350" y="316" text-anchor="middle">Independent chains. State in one never overwrites another.</text>
+            </svg>
+          </div>
+
+          <div class="cs-text">
+            <p><strong>Missed milestone deadline.</strong> An OVERDUE state is triggered and a retry cadence is defined. A late fee is levied on the customer if the payment due date for that leg is crossed. A late penalty is levied on the merchant if milestone delivery is delayed past the agreed date. Both parties have the right to waive the respective charge for the other.</p>
+            <p><strong>Failed leg after successful legs.</strong> Settled legs are never reversed. Only the failed leg is re-initiated. When an order is voided, the merchant can process a full or partial refund for any individual leg.</p>
+            <p><strong>Chargeback on one leg.</strong> Isolated to that milestone leg. Other legs are untouched.</p>
+            <p><strong>Dispute loop exhausted.</strong> Escalates to internal mediation after two cycles. The order is frozen during mediation.</p>
+          </div>
+        </div>
+
+        <!-- ============ UNLOCKS ============ -->
+        <div class="cs-section" id="s-unlocks">
+          <p class="cs-section-label">What This Unlocks</p>
+          <div class="cs-text">
+            <p>Milestone mode is the first payment product in the Indian market purpose-built for project-based billing. Not an adaptation of subscriptions or payment links, but a native solution for how contractors, freelancers and delivery-based businesses actually operate.</p>
+            <p>The competitive gap is real. No existing payment aggregator or gateway offers milestone-linked collection with a built-in dispute and mediation layer, upfront consent capture for fees and penalties, and a three-status-chain architecture that keeps execution, reconciliation and refunds independent.</p>
+          </div>
+          <div class="stack">
+            <span class="pill">Freelancers and agencies billing on deliverables</span>
+            <span class="pill">Construction and contracting firms</span>
+            <span class="pill">Delivery businesses with staged fulfillment</span>
+            <span class="pill">Platforms stitching a tracker to a payment link</span>
+          </div>
+        </div>
+
+        <!-- ============ STATUS ============ -->
+        <div class="cs-section" id="s-status">
+          <p class="cs-section-label">Status</p>
+          <div class="cs-text">
+            <p>Built. Go-live is pending RBI Payment Aggregator licence receipt, an external regulatory dependency rather than a product gap. The feature is spec-complete, built and ready for production deployment on licence receipt.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-  <div class="cs-soon"><strong>Full case study coming soon.</strong> The write-up for this project is in progress. In the meantime, see <a href="regwatch.html" style="color:var(--accent2)">RegWatch</a> for a complete case study.</div>
-</div>
 
 <footer>
   <span class="footer-l">Yojan Saini · Gurugram, India</span>
@@ -43,4 +469,6 @@
     <a href="https://linkedin.com/in/yojan-saini/" target="_blank">LinkedIn</a>
   </div>
 </footer>
+<script src="../assets/js/case.js"></script>
+<script src="../assets/js/pp-canvas.js"></script>
 </body></html>

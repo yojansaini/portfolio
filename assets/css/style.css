@@ -324,9 +324,9 @@ html,body{overflow-x:hidden}
 
 @media(max-width:900px){
   /* stack: portrait above the copy, nothing overlapping */
-  .hero{flex-direction:column;align-items:center;min-height:auto;
+  .hero{flex-direction:column;align-items:center;min-height:auto;row-gap:8px;
     padding:clamp(32px,7vw,56px) 0 0;background:linear-gradient(170deg,var(--bg1),var(--bg) 70%)}
-  .hero-bg{position:static;width:min(62%,260px);max-width:260px;margin-bottom:-8px}
+  .hero-bg{position:static;width:min(62%,250px);max-width:250px;margin:0 0 4px}
   .hero-bg img{height:auto;aspect-ratio:11/14}
   .hero-bg::after{display:none}
   .hero-inner{padding-bottom:clamp(32px,7vw,56px)}
@@ -347,3 +347,138 @@ html,body{overflow-x:hidden}
 .arch-wrap svg .tp2{fill:var(--purple2)}
 .arch-wrap svg .ln{stroke:var(--border2);fill:none}
 .arch-wrap svg .lnp{stroke:var(--purple);fill:none}
+
+/* ---- Partial Payments diagrams: theme-aware ---- */
+.arch-wrap svg .col-hl{fill:var(--tint)}
+.arch-wrap svg .mode-h{font-family:var(--display);font-size:14px;font-weight:600}
+.arch-wrap svg .mode-sub{font-size:10px}
+.arch-wrap svg .pk{font-size:8.5px;letter-spacing:.08em}
+.arch-wrap svg .pv{font-size:11.5px;font-weight:500}
+.arch-wrap svg .tiny{font-size:8.5px}
+.arch-wrap svg .dot-a{fill:var(--accent)}
+.arch-wrap svg .dot-p{fill:var(--purple2)}
+.arch-wrap svg .tc{fill:#7a6ae0}
+
+/* consent steps */
+.arch-wrap svg .step{fill:var(--bg2);stroke:var(--accent);stroke-width:1.5}
+.arch-wrap svg .step.key{stroke:var(--purple);fill:var(--tint)}
+.arch-wrap svg .step.done{stroke:var(--accent2);stroke-width:2}
+.arch-wrap svg .step-n{font-family:var(--display);font-size:12px;font-weight:600}
+.arch-wrap svg .step-t{font-family:var(--display);font-size:11px;font-weight:500}
+.arch-wrap svg .step-d{font-size:8.5px}
+
+/* status chain */
+.arch-wrap svg .row-a{fill:var(--bg1)}
+.arch-wrap svg .row-b{fill:var(--bg2)}
+.arch-wrap svg .dim-l{font-family:var(--display);font-size:9.5px;font-weight:500;letter-spacing:.07em}
+.arch-wrap svg .pillbox{fill:var(--bg2);stroke:var(--border2);stroke-width:1}
+.arch-wrap svg .pillbox.ex{stroke:var(--accent)}
+.arch-wrap svg .pillbox.rc{stroke:#7a6ae0}
+.arch-wrap svg .pillbox.rf{stroke:var(--purple)}
+.arch-wrap svg .pillbox.term{stroke-dasharray:3 3;opacity:.62}
+.arch-wrap svg .pt{font-size:9.5px;font-weight:500}
+.arch-wrap svg .pt-s{font-size:8.5px;font-weight:500}
+.arch-wrap svg .ex-l{stroke:var(--accent)}
+.arch-wrap svg .rc-l{stroke:#7a6ae0}
+.arch-wrap svg .rf-l{stroke:var(--purple)}
+
+/* figure caption + stat strip label */
+.fig-note{font-size:11.5px;color:var(--text3);line-height:1.6;margin:-8px 0 20px}
+.stat-strip-label{font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin:28px 0 14px}
+.impact-desc cite{display:block;font-style:normal;font-size:10.5px;color:var(--text3);margin-top:8px;line-height:1.45}
+@media (prefers-color-scheme: light){
+  .arch-wrap svg .tc,.arch-wrap svg .pillbox.rc,.arch-wrap svg .rc-l{stroke:#5b46b8}
+  .arch-wrap svg .tc{fill:#5b46b8;stroke:none}
+}
+
+/* ---- The path: vertical on phones, no sideways scroll ---- */
+@media(max-width:760px){
+  .path-scroll{overflow:visible;margin:0;padding:0}
+  .path{grid-auto-flow:row;grid-auto-columns:auto;min-width:0;padding-left:22px;row-gap:0}
+  /* one continuous rail instead of a per-node horizontal segment */
+  .path::before{content:"";position:absolute;left:5px;top:7px;bottom:7px;width:1px;background:var(--border2)}
+  .node{display:block;padding:0 0 22px 0}
+  .node:last-child{padding-bottom:0}
+  .node::before{display:none}
+  .node-dot{position:absolute;left:-22px;top:4px;margin:0}
+  .node-yr{margin-bottom:5px}
+  .node-kind{margin-bottom:5px}
+  .node-role,.node-org{padding-right:0}
+}
+/* secondary lead paragraph in a case study header */
+.cs-lead-2{font-size:14px;color:var(--text2);line-height:1.8;margin-top:16px;opacity:.88}
+
+/* ================= Card art + status pills ================= */
+/* number / title / pill share a centre line rather than a baseline */
+.pcard-lead{align-items:center;gap:12px}
+.pcard-num{position:relative;top:1px;font-size:12px;letter-spacing:.04em}
+.pcard-title{line-height:1.1}
+
+.pcard-status{align-self:center;font-size:10.5px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:4px 12px;line-height:1.5;white-space:nowrap}
+.pcard-status.new{color:#fff;border-color:transparent;
+  background:linear-gradient(95deg,var(--accent),var(--purple));
+  box-shadow:0 1px 10px var(--tintb)}
+.pcard-status.upcoming{color:var(--text3);border-color:var(--border2);background:none}
+
+/* ---- isometric art, top-right of each card ---- */
+.pcard{position:relative;overflow:hidden}
+.pcard-art{position:absolute;top:58px;right:22px;width:clamp(170px,19vw,228px);
+  pointer-events:none;opacity:.95;transition:transform .4s ease,opacity .3s}
+.pcard-art svg{display:block;width:100%;height:auto;overflow:visible}
+.pcard:hover .pcard-art{transform:translateY(-3px)}
+/* keep prose clear of the art */
+.pcard-sub{max-width:min(62ch,calc(100% - 250px))}
+
+.iso path,.iso rect,.iso circle{vector-effect:non-scaling-stroke}
+.iso-base{fill:var(--tint);stroke:var(--border2);stroke-width:1;stroke-dasharray:3 4}
+.iso-top{fill:var(--bg3);stroke:var(--accent);stroke-width:1.1}
+.iso-top2{fill:var(--bg2);stroke:var(--accent);stroke-width:1.1}
+.iso-l{fill:var(--bg1);stroke:var(--border2);stroke-width:1}
+.iso-r{fill:var(--bg2);stroke:var(--border2);stroke-width:1}
+
+/* RegWatch */
+.iso-doc path{fill:var(--bg2);stroke:var(--accent);stroke-width:1}
+.iso-doc .ln2{stroke:var(--text3);stroke-width:1;fill:none}
+.iso-doc{animation:isoFloat 4s ease-in-out infinite}
+.iso-doc.d2{animation-delay:-1.8s}
+.iso-beam{stroke:var(--purple);stroke-width:1.2;stroke-dasharray:3 4;fill:none}
+.iso-pulse{fill:var(--purple2);animation:isoBeam 2.4s ease-in-out infinite}
+.iso-chip rect{fill:var(--tint);stroke:var(--accent2);stroke-width:1}
+.iso-chip{animation:isoFloat 3.4s ease-in-out infinite}
+.iso-chip.c2{animation-delay:-1.4s}
+
+/* Partial Payments */
+.iso-step.pend .iso-top{stroke:var(--purple);stroke-dasharray:4 3;fill:var(--tint)}
+.iso-step.pend .iso-l,.iso-step.pend .iso-r{stroke-dasharray:4 3;opacity:.65}
+.iso-tick circle{fill:var(--bg1);stroke:var(--accent);stroke-width:1.2}
+.iso-tick .chk{stroke:var(--accent2);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.iso-tick.wait circle{stroke:var(--purple)}
+.iso-tick .wdot{fill:var(--purple2);stroke:none;animation:isoBeam 1.6s ease-in-out infinite}
+.iso-tick{animation:isoFloat 4.2s ease-in-out infinite}
+.iso-tick.t2{animation-delay:-1.4s}
+.iso-tick.t3{animation-delay:-2.8s}
+
+/* DMO: a flow still being assembled */
+.iso-wire{stroke:var(--border2);stroke-width:1.2;fill:none;stroke-dasharray:4 4;
+  animation:isoWire 3s linear infinite}
+.iso-ghost path{fill:none;stroke:var(--purple);stroke-width:1.2;stroke-dasharray:5 4;
+  animation:isoGhost 2.8s ease-in-out infinite}
+.think circle{fill:var(--purple2)}
+.td1{animation:isoThink 1.4s ease-in-out infinite}
+.td2{animation:isoThink 1.4s ease-in-out infinite .18s}
+.td3{animation:isoThink 1.4s ease-in-out infinite .36s}
+
+@keyframes isoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes isoBeam{0%,100%{opacity:.25;r:3}50%{opacity:1;r:5}}
+@keyframes isoWire{to{stroke-dashoffset:-16}}
+@keyframes isoGhost{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes isoThink{0%,100%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-5px)}}
+
+@media (prefers-reduced-motion:reduce){
+  .iso-doc,.iso-chip,.iso-tick,.iso-pulse,.iso-wire,.iso-ghost,.think circle{animation:none}
+}
+@media(max-width:860px){
+  .pcard-art{display:none}
+  .pcard-sub{max-width:none}
+}

@@ -71,8 +71,36 @@
         <div class="pcard-lead">
           <span class="pcard-num">01</span>
           <h3 class="pcard-title">RegWatch</h3>
+          <span class="pcard-status new">New</span>
         </div>
         <span class="pcard-arrow">↗</span>
+      </div>
+      <div class="pcard-art" aria-hidden="true">
+        <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+          <!-- isometric: documents feeding a stack, scan beam, classified output -->
+          <g class="iso">
+            <!-- base platform -->
+            <path class="iso-base" d="M110 148 L196 104 L110 60 L24 104 Z"/>
+            <!-- server stack -->
+            <g class="iso-stack">
+              <path class="iso-top" d="M110 72 L160 100 L110 128 L60 100 Z"/>
+              <path class="iso-l"   d="M60 100 L110 128 L110 140 L60 112 Z"/>
+              <path class="iso-r"   d="M160 100 L110 128 L110 140 L160 112 Z"/>
+              <path class="iso-top2" d="M110 56 L160 84 L110 112 L60 84 Z"/>
+              <path class="iso-l"   d="M60 84 L110 112 L110 124 L60 96 Z"/>
+              <path class="iso-r"   d="M160 84 L110 112 L110 124 L160 96 Z"/>
+            </g>
+            <!-- incoming documents -->
+            <g class="iso-doc d1"><path d="M36 60 L58 73 L58 53 L36 40 Z"/><path class="ln2" d="M41 54 L53 61"/><path class="ln2" d="M41 60 L53 67"/></g>
+            <g class="iso-doc d2"><path d="M14 44 L36 57 L36 37 L14 24 Z"/><path class="ln2" d="M19 38 L31 45"/></g>
+            <!-- scan beam -->
+            <path class="iso-beam" d="M110 24 L110 56"/>
+            <circle class="iso-pulse" cx="110" cy="40" r="4"/>
+            <!-- classified chips out -->
+            <g class="iso-chip c1"><rect x="168" y="44" width="30" height="11" rx="5.5"/></g>
+            <g class="iso-chip c2"><rect x="176" y="62" width="24" height="11" rx="5.5"/></g>
+          </g>
+        </svg>
       </div>
 
       <div class="pcard-tags">
@@ -114,42 +142,72 @@
         <div class="pcard-lead">
           <span class="pcard-num">02</span>
           <h3 class="pcard-title">Partial Payments</h3>
-          <span class="pcard-status">Built · write-up in progress</span>
+          <span class="pcard-status new">New</span>
         </div>
         <span class="pcard-arrow">↗</span>
       </div>
-
-      <div class="pcard-tags">
-        <span class="rtag">Payments</span>
-        <span class="rtag">Hosted checkout</span>
-        <span class="rtag">PRD</span>
-        <span class="rtag">Edge cases</span>
+      <div class="pcard-art" aria-hidden="true">
+        <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+          <!-- isometric: milestone steps, each gated by acceptance -->
+          <g class="iso">
+            <path class="iso-base" d="M110 152 L200 108 L110 64 L20 108 Z"/>
+            <!-- step 1 (settled) -->
+            <g class="iso-step s1">
+              <path class="iso-top" d="M58 110 L92 127 L58 144 L24 127 Z"/>
+              <path class="iso-l" d="M24 127 L58 144 L58 152 L24 135 Z"/>
+              <path class="iso-r" d="M92 127 L58 144 L58 152 L92 135 Z"/>
+            </g>
+            <!-- step 2 (settled) -->
+            <g class="iso-step s2">
+              <path class="iso-top" d="M110 88 L144 105 L110 122 L76 105 Z"/>
+              <path class="iso-l" d="M76 105 L110 122 L110 138 L76 121 Z"/>
+              <path class="iso-r" d="M144 105 L110 122 L110 138 L144 121 Z"/>
+            </g>
+            <!-- step 3 (pending acceptance) -->
+            <g class="iso-step s3 pend">
+              <path class="iso-top" d="M162 66 L196 83 L162 100 L128 83 Z"/>
+              <path class="iso-l" d="M128 83 L162 100 L162 124 L128 107 Z"/>
+              <path class="iso-r" d="M196 83 L162 100 L162 124 L196 107 Z"/>
+            </g>
+            <!-- acceptance ticks -->
+            <g class="iso-tick t1"><circle cx="58" cy="96" r="9"/><path class="chk" d="M53.5 96 L57 99.5 L63 92.5"/></g>
+            <g class="iso-tick t2"><circle cx="110" cy="74" r="9"/><path class="chk" d="M105.5 74 L109 77.5 L115 70.5"/></g>
+            <g class="iso-tick t3 wait"><circle cx="162" cy="50" r="9"/><circle class="wdot" cx="162" cy="50" r="2.5"/></g>
+          </g>
+        </svg>
       </div>
 
-      <p class="pcard-sub">A multi-mode partial payment capability for SecurePay's hosted checkout, letting a payer settle an invoice in installments or split it across people and methods. The design problem was not the happy path; it was keeping money, order and refund state coherent when a payment is only ever partly complete.</p>
+      <div class="pcard-tags">
+        <span class="rtag ai">Milestone billing</span>
+        <span class="rtag">Payments</span>
+        <span class="rtag">Consent design</span>
+        <span class="rtag">PRD lead</span>
+      </div>
+
+      <p class="pcard-sub">A three-mode collection feature built for milestone-based billing, where payment only moves when a deliverable is accepted. India has roughly 15 million freelancers and ₹7.34 lakh crore in delayed MSME payments, yet every platform treats collection as a single event or a time-based split. The insight: milestone-linked billing is a contract and consent problem that happens to end in a payment.</p>
 
       <div class="pcard-points">
         <div class="pp">
-          <div class="pp-label">Modes</div>
-          <div class="pp-text">Installments over time, and splits across multiple payers and payment methods on a single invoice.</div>
+          <div class="pp-label">The innovation</div>
+          <div class="pp-text">Milestone mode. A leg moves only when the merchant marks work done and the customer accepts. Disputes loop twice, then escalate to SecurePay mediation.</div>
         </div>
         <div class="pp">
-          <div class="pp-label">Status model</div>
-          <div class="pp-text">A three-dimension status chain separating payment, order and settlement state, so a part-paid invoice is never ambiguous.</div>
+          <div class="pp-label">Hardest decision</div>
+          <div class="pp-text">Scoping consent inside a merchant-created order. A dedicated consent layer surfaces every fee and penalty upfront, meeting RBI PA 2025 and DPDP 2023.</div>
         </div>
         <div class="pp">
-          <div class="pp-label">Scope</div>
-          <div class="pp-text">20+ edge cases specified: overpayment, expiry mid-chain, partial refunds and reconciliation against a part-settled order.</div>
+          <div class="pp-label">Architecture</div>
+          <div class="pp-text">Execution, reconciliation and refund modelled as three independent status chains, so a chargeback on one leg never contaminates the others.</div>
         </div>
       </div>
 
       <div class="pcard-foot">
         <div class="pcard-metrics">
-          <span class="pm"><b>3</b> status dimensions</span>
-          <span class="pm"><b>20+</b> edge cases</span>
-          <span class="pm"><b>2</b> payment modes</span>
+          <span class="pm"><b>3</b> collection modes</span>
+          <span class="pm"><b>3</b> status chains</span>
+          <span class="pm"><b>2</b> dispute cycles</span>
         </div>
-        <div class="pcard-stack">Product spec · Checkout · Ledger &amp; reconciliation</div>
+        <div class="pcard-stack">PRD · Consent design · Edge cases · Mediation flow</div>
       </div>
     </a>
 
@@ -158,9 +216,32 @@
         <div class="pcard-lead">
           <span class="pcard-num">03</span>
           <h3 class="pcard-title">DMO AI Flow Builder</h3>
-          <span class="pcard-status">Built · write-up in progress</span>
+          <span class="pcard-status upcoming">Upcoming</span>
         </div>
         <span class="pcard-arrow">↗</span>
+      </div>
+      <div class="pcard-art" aria-hidden="true">
+        <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+          <!-- isometric: a KYC flow assembling itself, still being worked on -->
+          <g class="iso">
+            <path class="iso-base" d="M110 150 L198 106 L110 62 L22 106 Z"/>
+            <!-- connectors -->
+            <path class="iso-wire" d="M62 104 L110 80 L158 104"/>
+            <path class="iso-wire" d="M110 80 L110 122"/>
+            <!-- nodes -->
+            <g class="iso-node n1"><path class="iso-top" d="M62 92 L84 104 L62 116 L40 104 Z"/><path class="iso-l" d="M40 104 L62 116 L62 124 L40 112 Z"/><path class="iso-r" d="M84 104 L62 116 L62 124 L84 112 Z"/></g>
+            <g class="iso-node n2"><path class="iso-top" d="M158 92 L180 104 L158 116 L136 104 Z"/><path class="iso-l" d="M136 104 L158 116 L158 124 L136 112 Z"/><path class="iso-r" d="M180 104 L158 116 L158 124 L180 112 Z"/></g>
+            <g class="iso-node n3"><path class="iso-top" d="M110 110 L132 122 L110 134 L88 122 Z"/><path class="iso-l" d="M88 122 L110 134 L110 142 L88 130 Z"/><path class="iso-r" d="M132 122 L110 134 L110 142 L132 130 Z"/></g>
+            <!-- node being generated: dashed ghost -->
+            <g class="iso-ghost"><path d="M110 68 L132 80 L110 92 L88 80 Z"/></g>
+            <!-- thinking indicator -->
+            <g class="think">
+              <circle class="td td1" cx="98" cy="36" r="4"/>
+              <circle class="td td2" cx="110" cy="36" r="4"/>
+              <circle class="td td3" cx="122" cy="36" r="4"/>
+            </g>
+          </g>
+        </svg>
       </div>
 
       <div class="pcard-tags">
