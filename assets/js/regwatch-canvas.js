@@ -1,4 +1,31 @@
 let rwRaf=null,rwDone=false;
+/* Theme palettes. The draw loop reads P every frame, so a system
+   theme change takes effect without restarting the animation. */
+const THEMES={
+  dark:{
+    glow:'rgba(80,20,160,.10)', spine:'rgba(74,127,165,.14)',
+    arc:'rgba(123,79,212,.20)', doc:'rgba(74,127,165,.85)',
+    pAi:'rgba(160,80,255,', pStd:'rgba(111,163,200,',
+    nGlowAi:'rgba(140,60,240,.28)', nGlowStd:'rgba(74,127,165,.18)',
+    coreAi:'rgba(100,40,200,.5)', coreStd:'rgba(26,51,82,.7)',
+    label:'rgba(240,240,237,.92)', sub:'rgba(138,154,176,.75)',
+    node:{src:'#5a9fd4',crawl:'#7a6ae0',rag:'#9b74e8',llm:'#a855f7',out:'#5a9fd4',fb:'#8b5cf6'},
+    bars:['#e05555','#e8a020','#5a9fd4']
+  },
+  light:{
+    glow:'rgba(107,63,196,.07)', spine:'rgba(31,107,158,.22)',
+    arc:'rgba(107,63,196,.28)', doc:'rgba(31,107,158,.75)',
+    pAi:'rgba(107,63,196,', pStd:'rgba(31,107,158,',
+    nGlowAi:'rgba(107,63,196,.16)', nGlowStd:'rgba(31,107,158,.14)',
+    coreAi:'rgba(107,63,196,.22)', coreStd:'rgba(31,107,158,.14)',
+    label:'rgba(12,23,37,.92)', sub:'rgba(74,91,110,.85)',
+    node:{src:'#1f6b9e',crawl:'#5b46b8',rag:'#6b3fc4',llm:'#7c3aed',out:'#1f6b9e',fb:'#6d28d9'},
+    bars:['#c53030','#b7791f','#1f6b9e']
+  }
+};
+const mq=window.matchMedia('(prefers-color-scheme: light)');
+let P=mq.matches?THEMES.light:THEMES.dark;
+mq.addEventListener('change',e=>{P=e.matches?THEMES.light:THEMES.dark;});
 function startRwCanvas(){
   if(rwDone)return; rwDone=true;
   const cv=document.getElementById('rwCanvas');
@@ -16,13 +43,13 @@ function startRwCanvas(){
 
   // Named pipeline stages with fixed x positions
   const ST=[
-    {id:'rbi',   label:'RBI',      sub:'source',        x:.09, col:'#4a7fa5', ai:false},
-    {id:'npci',  label:'NPCI',     sub:'source',        x:.20, col:'#4a7fa5', ai:false},
-    {id:'crawl', label:'Crawl',    sub:'+ queue',       x:.35, col:'#6a5acd', ai:false},
-    {id:'rag',   label:'RAG',      sub:'pipeline',      x:.50, col:'#7b4fd4', ai:true},
-    {id:'llm',   label:'LLM',      sub:'self-hosted',   x:.64, col:'#9040e0', ai:true},
-    {id:'alerts',label:'Alerts',   sub:'+ digests',     x:.79, col:'#4a7fa5', ai:false},
-    {id:'fb',    label:'Feedback', sub:'↺ loop',        x:.91, col:'#6a40b0', ai:true},
+    {id:'rbi',   label:'RBI',      sub:'source',        x:.09, col:'src', ai:false},
+    {id:'npci',  label:'NPCI',     sub:'source',        x:.20, col:'src', ai:false},
+    {id:'crawl', label:'Crawl',    sub:'+ queue',       x:.35, col:'crawl', ai:false},
+    {id:'rag',   label:'RAG',      sub:'pipeline',      x:.50, col:'rag', ai:true},
+    {id:'llm',   label:'LLM',      sub:'self-hosted',   x:.64, col:'llm', ai:true},
+    {id:'alerts',label:'Alerts',   sub:'+ digests',     x:.79, col:'out', ai:false},
+    {id:'fb',    label:'Feedback', sub:'↺ loop',        x:.91, col:'fb', ai:true},
   ];
 
   // Directed pipes: [from_idx, to_idx, isFeedback]
@@ -49,7 +76,7 @@ function startRwCanvas(){
   });
 
   // Severity bars on right
-  const BARS=[{h:.55,c:'#e04040',l:'High'},{h:.35,c:'#e8a020',l:'Med'},{h:.18,c:'#4a7fa5',l:'Low'}];
+  const BARS=[{h:.55,ci:0,l:'High'},{h:.35,ci:1,l:'Med'},{h:.18,ci:2,l:'Low'}];
 
   function draw(){
     ctx.clearRect(0,0,W,H);
@@ -57,12 +84,12 @@ function startRwCanvas(){
 
     // Subtle center glow
     const bg=ctx.createRadialGradient(W*.5,cy,0,W*.5,cy,W*.38);
-    bg.addColorStop(0,'rgba(80,20,160,.1)'); bg.addColorStop(1,'rgba(0,0,0,0)');
+    bg.addColorStop(0,P.glow); bg.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
 
     // Spine line
     ctx.beginPath(); ctx.moveTo(W*.06,cy); ctx.lineTo(W*.84,cy);
-    ctx.strokeStyle='rgba(74,127,165,.12)'; ctx.lineWidth=1.5*R; ctx.stroke();
+    ctx.strokeStyle=P.spine; ctx.lineWidth=1.5*R; ctx.stroke();
 
     // Feedback arc (below spine)
     const arcY=H*.82;
@@ -70,7 +97,7 @@ function startRwCanvas(){
     ctx.moveTo(W*ST[6].x,cy);
     ctx.quadraticCurveTo(W*.72,arcY,W*.5,arcY);
     ctx.quadraticCurveTo(W*.28,arcY,W*ST[3].x,cy);
-    ctx.strokeStyle='rgba(123,79,212,.18)';
+    ctx.strokeStyle=P.arc;
     ctx.lineWidth=1.5*R; ctx.setLineDash([4*R,5*R]); ctx.stroke(); ctx.setLineDash([]);
 
     // Floating docs
@@ -81,7 +108,7 @@ function startRwCanvas(){
       const dx=W*d.x, dy=H*d.y, dw=W*d.sz, dh=dw*1.3;
       const fl=.55+.35*Math.sin(t*.03+d.ph);
       ctx.save(); ctx.globalAlpha=fl*.65;
-      ctx.strokeStyle='rgba(74,127,165,.85)'; ctx.lineWidth=R;
+      ctx.strokeStyle=P.doc; ctx.lineWidth=R;
       ctx.beginPath();
       ctx.moveTo(dx,dy); ctx.lineTo(dx+dw*.76,dy);
       ctx.lineTo(dx+dw,dy+dh*.22); ctx.lineTo(dx+dw,dy+dh);
@@ -119,7 +146,7 @@ function startRwCanvas(){
         px=W*sa.x+(W*sb.x-W*sa.x)*p.t; py=cy;
       }
       const isP=pipe[2]||ST[pipe[1]].ai;
-      const pc=isP?'rgba(160,80,255,':'rgba(111,163,200,';
+      const pc=isP?P.pAi:P.pStd;
       const g=ctx.createRadialGradient(px,py,0,px,py,5*R);
       g.addColorStop(0,pc+'.9)'); g.addColorStop(1,pc+'0)');
       ctx.beginPath(); ctx.arc(px,py,4*R,0,Math.PI*2);
@@ -134,26 +161,26 @@ function startRwCanvas(){
 
       // Glow
       const g=ctx.createRadialGradient(nx,ny,0,nx,ny,r*3);
-      g.addColorStop(0,s.ai?'rgba(140,60,240,.28)':'rgba(74,127,165,.18)');
+      g.addColorStop(0,s.ai?P.nGlowAi:P.nGlowStd);
       g.addColorStop(1,'rgba(0,0,0,0)');
       ctx.beginPath(); ctx.arc(nx,ny,r*3,0,Math.PI*2);
       ctx.fillStyle=g; ctx.fill();
 
       // Ring
       ctx.beginPath(); ctx.arc(nx,ny,r,0,Math.PI*2);
-      ctx.strokeStyle=s.col; ctx.lineWidth=1.5*R; ctx.stroke();
+      ctx.strokeStyle=P.node[s.col]; ctx.lineWidth=1.5*R; ctx.stroke();
 
       // Core
       ctx.beginPath(); ctx.arc(nx,ny,r*.5,0,Math.PI*2);
-      ctx.fillStyle=s.ai?'rgba(100,40,200,.5)':'rgba(26,51,82,.7)'; ctx.fill();
+      ctx.fillStyle=s.ai?P.coreAi:P.coreStd; ctx.fill();
 
       // Labels above node
       ctx.font=`500 ${8.5*R}px 'General Sans',Inter,sans-serif`;
       ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillStyle='rgba(240,240,237,.92)';
+      ctx.fillStyle=P.label;
       ctx.fillText(s.label,nx,ny-r*2.2);
       ctx.font=`${7.5*R}px 'General Sans',Inter,sans-serif`;
-      ctx.fillStyle='rgba(138,154,176,.75)';
+      ctx.fillStyle=P.sub;
       ctx.fillText(s.sub,nx,ny-r*2.2+11*R);
     });
 
@@ -162,9 +189,9 @@ function startRwCanvas(){
     BARS.forEach((b,i)=>{
       const bh=H*b.h*(1+.04*Math.sin(t*.05+i));
       const bx=bx0+i*gap, by=by0+(H*.42-bh);
-      ctx.fillStyle=b.c; ctx.fillRect(bx,by,bW,bh);
+      ctx.fillStyle=P.bars[b.ci]; ctx.fillRect(bx,by,bW,bh);
       ctx.font=`${7.5*R}px 'General Sans',Inter,sans-serif`;
-      ctx.fillStyle='rgba(138,154,176,.7)';
+      ctx.fillStyle=P.sub;
       ctx.textAlign='center';
       ctx.fillText(b.l,bx+bW/2,by0+H*.45);
     });

@@ -10,7 +10,7 @@
   --card1h:#13263d;--card2h:rgba(19,38,61,.55);
   --cell:#070f1c;--btn-fg:#06111f;
   --tint:rgba(90,159,212,.10);--tintb:rgba(90,159,212,.38);
-  --glow1:rgba(90,159,212,.18);--glow2:rgba(155,116,232,.07);
+  --glow1:rgba(90,159,212,.18);--glow2:rgba(155,116,232,.07);--canvasbg:#06021a;
   --sans:'General Sans','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--display:'General Sans','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 html{scroll-behavior:smooth}
@@ -113,7 +113,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
 .arch-wrap svg{display:block;min-width:580px;}
 
 /* --- */
-.rw-graphic-wrap{position:relative;width:100%;height:260px;border-radius:10px;overflow:hidden;border:1px solid var(--border2);margin:20px 0;background:#06021a;}
+.rw-graphic-wrap{position:relative;width:100%;height:260px;border-radius:10px;overflow:hidden;border:1px solid var(--border2);margin:20px 0;background:var(--canvasbg);}
 #rwCanvas{display:block;width:100%;height:100%;}
 
 /* --- */
@@ -227,12 +227,10 @@ footer{border-top:1px solid var(--border);padding:32px max(var(--pad),calc((100v
     --card1h:#ffffff;--card2h:#f1f6fb;
     --cell:#fbfcfe;--btn-fg:#ffffff;
     --tint:rgba(31,107,158,.07);--tintb:rgba(31,107,158,.3);
-    --glow1:rgba(31,107,158,.1);--glow2:rgba(107,63,196,.05);
+    --glow1:rgba(31,107,158,.1);--glow2:rgba(107,63,196,.05);--canvasbg:#f3f1fa;
   }
   .pcard{box-shadow:0 1px 2px rgba(12,23,37,.05)}
   .pcard:hover{box-shadow:0 6px 20px rgba(12,23,37,.08)}
-  /* Diagrams are drawn with fixed dark colours: keep them on a dark panel */
-  .arch-wrap,.rw-graphic-wrap{background:#0b1726;border-color:#24405f}
 }
 
 /* ---- General Sans tuning (single family: hierarchy by weight) ---- */
@@ -244,3 +242,108 @@ body{font-size:16px;letter-spacing:-0.005em}
 .stat-val,.impact-num,.pm b{font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
 .rtag,.pill,.pcard-status{font-weight:500}
 .nav-id{font-weight:700;letter-spacing:-0.02em}
+/* ================= Layout / overflow fixes ================= */
+html,body{overflow-x:hidden}
+.pcard,.pcard-sub,.pp-text,.cs-text,.hero-desc,.case-row-sub{overflow-wrap:anywhere}
+.pcard-top,.pcard-lead,.work-head,.pcard-foot{min-width:0}
+.pcard-title,.pcard-sub,.pp,.pm,.pcard-stack{min-width:0}
+.cs-body>*{min-width:0}
+.cs-rail{top:76px;max-height:calc(100vh - 96px);overflow-y:auto}
+.cs-wrap,.cs-content{min-width:0}
+.hero-name{overflow-wrap:break-word}
+/* Back is an <a> now, not a <button> */
+.back{text-decoration:none;width:fit-content}
+.back:hover{color:var(--accent)}
+.cs-rail-item{text-decoration:none}
+
+/* ================= The path: one horizontal career track ================= */
+.path-wrap{max-width:1240px;margin:0 auto;padding:clamp(44px,6vw,72px) var(--pad) clamp(52px,7vw,88px)}
+.bg-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;margin-bottom:38px}
+
+.path-scroll{overflow-x:auto;overflow-y:hidden;margin:0 calc(var(--pad)*-1);padding:0 var(--pad) 4px;scrollbar-width:thin}
+.path{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(168px,1fr);gap:0;position:relative;min-width:min-content}
+
+.node{position:relative;padding:0 18px 0 0;display:flex;flex-direction:column}
+.node-yr{font-size:11px;color:var(--text3);font-variant-numeric:tabular-nums;letter-spacing:.02em;margin-bottom:12px}
+/* the rail itself, drawn per node so it spans the full track */
+.node::before{content:"";position:absolute;left:0;right:0;top:28px;height:1px;background:var(--border2)}
+.node:last-child::before{right:auto;width:5px}
+.node-dot{position:relative;z-index:1;width:11px;height:11px;border-radius:50%;background:var(--text3);box-shadow:0 0 0 4px var(--bg);margin-bottom:16px}
+.node.work .node-dot{background:var(--accent)}
+.node.now .node-dot{background:var(--accent2);box-shadow:0 0 0 4px var(--bg),0 0 0 7px var(--tint)}
+
+.node-kind{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.node.work .node-kind{color:var(--accent)}
+.node.now .node-kind{color:var(--accent2)}
+.node-role{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:4px;padding-right:6px}
+.node-org{font-size:12.5px;color:var(--text2);line-height:1.4;padding-right:6px}
+
+/* ---- certification chips ---- */
+.creds{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:44px;padding-top:26px;border-top:1px solid var(--border)}
+.creds-label{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);flex-shrink:0}
+.creds-list{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text);border:1px solid var(--border);background:var(--card1);border-radius:999px;padding:7px 15px 7px 12px}
+.chip svg{width:12px;height:12px;flex-shrink:0;stroke:var(--accent);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.chip i{font-style:normal;color:var(--text3);font-size:11.5px}
+
+
+/* ================= Hero: cut-out portrait, theme-aware ================= */
+.hero{position:relative;display:flex;align-items:flex-end;min-height:min(86vh,720px);max-width:none;margin:0;
+  padding:clamp(48px,7vw,80px) 0 0;overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(70% 90% at 72% 85%,var(--glow1),transparent 62%),
+    linear-gradient(170deg,var(--bg1) 0%,var(--bg) 58%)}
+.hero::before{display:none}
+
+/* portrait: contained, standing on the baseline, no crop */
+.hero-bg{position:absolute;right:clamp(0px,5vw,96px);bottom:0;top:clamp(24px,6vh,64px);
+  width:min(42%,500px);z-index:-1;display:flex;align-items:flex-end;justify-content:center}
+.hero-bg img{width:100%;height:100%;object-fit:contain;object-position:bottom center;
+  filter:drop-shadow(0 24px 48px rgba(0,0,0,.28))}
+
+/* ground shadow so the figure is not floating */
+.hero-bg::after{content:"";position:absolute;left:8%;right:8%;bottom:-6px;height:70px;z-index:-1;
+  background:radial-gradient(50% 50% at 50% 50%,var(--glow1),transparent 70%);opacity:.9}
+
+/* fade the base of the figure into the page */
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:15%;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,var(--bg))}
+
+.hero-inner{position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;
+  padding:0 var(--pad) clamp(56px,9vw,104px)}
+.hero-inner>*{max-width:min(560px,54%)}
+.hero-actions{margin-bottom:0;max-width:none}
+
+.hero-stats-wrap{max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,52px) var(--pad) clamp(48px,7vw,80px)}
+.hero-stats{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-top:0}
+
+@media (prefers-color-scheme: light){
+  .hero-bg img{filter:drop-shadow(0 24px 44px rgba(12,23,37,.16))}
+  .hero-bg::after{opacity:.6}
+}
+
+@media(max-width:900px){
+  /* stack: portrait above the copy, nothing overlapping */
+  .hero{flex-direction:column;align-items:center;min-height:auto;
+    padding:clamp(32px,7vw,56px) 0 0;background:linear-gradient(170deg,var(--bg1),var(--bg) 70%)}
+  .hero-bg{position:static;width:min(62%,260px);max-width:260px;margin-bottom:-8px}
+  .hero-bg img{height:auto;aspect-ratio:11/14}
+  .hero-bg::after{display:none}
+  .hero-inner{padding-bottom:clamp(32px,7vw,56px)}
+  .hero-inner>*{max-width:none}
+  .hero::after{display:none}
+  .creds{flex-direction:column;align-items:flex-start;gap:14px}
+}
+
+/* ---- Architecture diagram: colours follow the theme ---- */
+.arch-wrap svg .box{fill:var(--bg2);stroke:var(--border2)}
+.arch-wrap svg .box.wide{fill:var(--bg1);stroke:var(--border)}
+.arch-wrap svg .box.hl{stroke:var(--accent)}
+.arch-wrap svg .box.ai{stroke:var(--purple)}
+.arch-wrap svg .t1{fill:var(--text)}
+.arch-wrap svg .t3{fill:var(--text3)}
+.arch-wrap svg .ta{fill:var(--accent)}
+.arch-wrap svg .tp{fill:var(--purple)}
+.arch-wrap svg .tp2{fill:var(--purple2)}
+.arch-wrap svg .ln{stroke:var(--border2);fill:none}
+.arch-wrap svg .lnp{stroke:var(--purple);fill:none}
